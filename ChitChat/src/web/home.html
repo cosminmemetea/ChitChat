@@ -1,18 +1,19 @@
 <!DOCTYPE html>
-<script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
     <!-- Firebase App is always required and must be first -->
-    <script src="/__/firebase/5.5.9/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-app.js"></script>
 
     <!-- Add additional services that you want to use -->
-    <script src="/__/firebase/5.5.9/firebase-auth.js"></script>
-    <script src="/__/firebase/5.5.9/firebase-database.js"></script>
-    <script src="/__/firebase/5.5.9/firebase-messaging.js"></script>
-    <script src="/__/firebase/5.5.9/firebase-functions.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-functions.js"></script>
 
     <!-- Comment out (or don't include) services that you don't want to use -->
     <!-- <script src="/__/firebase/5.5.9/firebase-storage.js"></script> -->
 
-    <script src="/__/firebase/init.js"></script>
+<!-- 
+    <script src="https://www.gstatic.com/firebasejs/5.5.9/init.js"></script>
+ -->
 
 <script>
 // Initialize Firebase
@@ -32,7 +33,7 @@
 <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet"> 
 <title>ChitChat</title>
 
-<script type="text/javascript" src = "ChitChat.js" ></script>
+<script type="text/javascript" src = "../scripts/ChitChat.js" ></script>
 </head>
 <body>
     <div id = "signup_div" class="signup-div">
@@ -49,7 +50,6 @@
     <input type="password" placeholder="Password" id="password_field"/> 
     <button onclick="login('email_field','password_field')">Login</button>
 </div>
-<script>getUserInfo()</script>
 <div id = "user_div" class="loggedin-div">
     <h3 id="greet_user"></h3> 
     <p>Wekcome to our chat page</p>
