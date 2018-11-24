@@ -1,8 +1,21 @@
 <!DOCTYPE html>
-<script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
+    <!-- Firebase App is always required and must be first -->
+    <script src="/__/firebase/5.5.9/firebase-app.js"></script>
+
+    <!-- Add additional services that you want to use -->
+    <script src="/__/firebase/5.5.9/firebase-auth.js"></script>
+    <script src="/__/firebase/5.5.9/firebase-database.js"></script>
+    <script src="/__/firebase/5.5.9/firebase-messaging.js"></script>
+    <script src="/__/firebase/5.5.9/firebase-functions.js"></script>
+
+    <!-- Comment out (or don't include) services that you don't want to use -->
+    <!-- <script src="/__/firebase/5.5.9/firebase-storage.js"></script> -->
+
+    <script src="/__/firebase/init.js"></script>
+
 <script>
-  // Initialize Firebase
+// Initialize Firebase
   var config = {
     apiKey: "AIzaSyDz-XCOZbklX-wA_hJqfxfI3-J_1WnEe9s",
     authDomain: "chitchat-381f6.firebaseapp.com",
@@ -13,39 +26,33 @@
   };
   firebase.initializeApp(config);
 </script>
-<!-- Firebase App is always required and must be first -->
-    <script src="/__/firebase/5.5.8/firebase-app.js"></script>
-
-    <!-- Add additional services that you want to use -->
-    <script src="/__/firebase/5.5.8/firebase-auth.js"></script>
-    <script src="/__/firebase/5.5.8/firebase-database.js"></script>
-    <script src="/__/firebase/5.5.8/firebase-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   .js"></script>
-    <script src="/__/firebase/5.5.8/firebase-functions.js"></script>
-
-    <!-- Comment out (or don't include) services that you don't want to use -->
-    <!-- <script src="/__/firebase/5.5.8/firebase-storage.js"></script> -->
-
-    <script src="/__/firebase/init.js"></script>
-
 <html>
 <head>
 <meta charset="UTF-8">
 <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet"> 
 <title>ChitChat</title>
+
 <script type="text/javascript" src = "ChitChat.js" ></script>
 </head>
 <body>
+    <div id = "signup_div" class="signup-div">
+        <h3>Signup</h3>
+        <input type="text" placeholder="Username" id="sign_up_username_field">
+        <input type="text" placeholder="Email" id="sign_up_email_field">
+        <input type="text" placeholder="Password" id="sign_up_password_field"> 
+        <button onclick="signUp('sign_up_username_field','sign_up_email_field','sign_up_password_field')">
+        SignUp</button>
+    </div>
 <div id = "login_div" class="main-div">
     <h3>Login</h3>
     <input type="email" placeholder="Email" id="email_field"/>
     <input type="password" placeholder="Password" id="password_field"/> 
-    <button onclick="login()">Login</button>
+    <button onclick="login('email_field','password_field')">Login</button>
 </div>
 <script>getUserInfo()</script>
 <div id = "user_div" class="loggedin-div">
     <h3 id="greet_user"></h3> 
     <p>Wekcome to our chat page</p>
-    
     <button onclick="logout()">Logout</button>
 </div>
 

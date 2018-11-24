@@ -1,60 +1,90 @@
-/**
- * This method will execute when the login button is pressed.
- */
-firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    // User is signed in.
-	  document.getElementById("user_div").style.display="initial";
-	  document.getElementById("login_div").style.display="none";
-  } else {
-    // No user is signed in.
-	  document.getElementById("user_div").style.display="none";
-	  document.getElementById("login_div").style.display="initial";
-  }
-});
-
-
-/**
- * This function is used to login a user.
- * @returns nothing.
- */
-function login(){
-	var  userEmail = document.getElementById("email_field").value;
-	var  userPass = document.getElementById("password_field").value;
-
-	firebase.auth().signInWithEmailAndPassword(userEmail, userPass).catch(function(error) {
-		  // Handle Errors here.
-		  var errorCode = error.code;
-		  var errorMessage = error.message;
-		  window.alert("Error: " + errorMessage );
+		/**
+		 * This method will execute when the login button is pressed.
+		 */
+		firebase.auth().onAuthStateChanged(function(user) {
+			if (user) {
+				// User is signed in.
+				document.getElementById("user_div").style.display="initial";
+				document.getElementById("login_div").style.display="none";
+				document.getElementById("signup_div").style.display="none";
+			} else {
+				// No user is signed in.
+				document.getElementById("user_div").style.display="none";
+				document.getElementById("login_div").style.display="initial";
+				document.getElementById("signup_div").style.display="initial";
+			}
 		});
-	window.alert(userEmail + " " + userPass);
-}
-
-/**
- * This function is used to logout a user.
- * @returns nothing.
- */
-function logout(){
-	firebase.auth().signOut().then(function() {
-		  // Sign-out successful.
-		}).catch(function(error) {
-		  // An error happened.
-		});
-}
-
-function getUserInfo(){
-	var c = document.getElementById("user_div").children;
-	c[0].innerHTML ="wel";
-	c[0].innerHTML ="sa";
-//	var userId = firebase.auth().getCurrentUser().uid;
-    
-    var userId = firebase.auth().currentUser.uid;
-    firebase.database().ref('/users/4B4ohoi9KbLHwlwNh2zT/name').then(function(snapshot) {
-      c[0].innerHTML="asaas";
-    });
-}
 
 
+		/**
+		 * Method used to login a user.
+		 * @param {*} email_field  the email user field id from the html element.
+		 * @param {*} password_field the password field id from the html element.
+		 */
+		function login(email_field , password_field){
+			var  userEmail = document.getElementById(email_field).value;
+			var  userPass = document.getElementById(password_field).value;
+
+			firebase.auth().signInWithEmailAndPassword(userEmail, userPass).catch(function(error) {
+					// Handle Errors here.
+					var errorCode = error.code;
+					var errorMessage = error.message;
+					window.alert("Error: "+errorCode+" :" + errorMessage );
+				});
+			window.alert(userEmail + " " + userPass);
+		}
+
+		/**
+		 * Used to sign up a new user.
+		 * @param { } username_field 
+		 * @param {*} email_field 
+		 * @param {*} password_field 
+		 */
+		function signUp(username_field, email_field, password_field){
+			var  userName = document.getElementById(username_field).value;
+			var  userEmail = document.getElementById(email_field).value;
+			var  userPass = document.getElementById(password_field).value;
+
+			firebase.auth().createUserWithEmailAndPassword(userEmail, userPass).catch(function(error) {
+			// Handle Errors here.
+				var errorCode = error.code;
+				var errorMessage = error.message;
+				window.alert("Error: "+errorCode+" :" + errorMessage );	
+				return;
+			});
+			addUserInfo(userName,userEmail);
+			login(userEmail,userPass);
+		}
+
+
+		/**
+		 * This function is used to logout a user.
+		 * @returns nothing.
+		 */
+		function logout(){
+			firebase.auth().signOut().then(function() {
+					// Sign-out successful.
+				}).catch(function(error) {
+					// An error happened.
+				});
+		}
+
+		/**
+		 * This method will add user info at sign-up time.
+		 * @param {*} name user name.
+		 * @param {*} email user email.
+		 */
+    	function addUserInfo(name,email){
+			firebase.auth().onAuthStateChanged((user) => {
+  			if (user) {
+				firebase.database().ref('users/' +user.uid).set({
+   				 username: name,
+   				 email: email
+  			 	});
+  			}else{
+					window.alert("User is NOT ready"+user.uid);	
+				}
+			});
+		}
 
 
