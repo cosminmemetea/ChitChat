@@ -52,7 +52,8 @@
 				window.alert("Error: "+errorCode+" :" + errorMessage );	
 				return;
 			});
-			addUserInfo(userName,userEmail);
+			//TODO add field when the UI will be imlemented.
+			addUserInfo(userName,userEmail,null);
 			login(userEmail,userPass);
 		}
 
@@ -74,12 +75,13 @@
 		 * @param {*} name user name.
 		 * @param {*} email user email.
 		 */
-    	function addUserInfo(name,email){
+    	function addUserInfo(name,email,image){
 			firebase.auth().onAuthStateChanged((user) => {
   			if (user) {
 				firebase.database().ref('users/' +user.uid).set({
    				 username: name,
-   				 email: email
+				 email: email,
+			     image:image
   			 	});
   			}else{
 					window.alert("User is NOT ready"+user.uid);	
