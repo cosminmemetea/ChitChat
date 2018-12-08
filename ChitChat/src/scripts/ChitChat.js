@@ -7,6 +7,7 @@
 				document.getElementById("user_div").style.display="initial";
 				document.getElementById("login_div").style.display="none";
 				document.getElementById("signup_div").style.display="none";
+//				openUserPage();
 			} else {
 				// No user is signed in.
 				document.getElementById("user_div").style.display="none";
@@ -89,4 +90,35 @@
 			});
 		}
 
+        /**
+        * Open a conversation with a user with specified id.
+        * @param userID with which the current user wants to talk
+        * @return a list of messages IDs
+        */
+     function openConversationWithUser(userID)
+        {
+        var currentUser = firebase.auth().currentUser;
+        var ref = firebase.database().ref('users/'+currentUser.uid+'/conversations/'+userID+'/messages');
 
+        ref.on("value", function(snapshot) {
+           console.log(snapshot.val());
+           return snapshot.val();
+        }, function (error) {
+           console.log("Error: " + error.code);
+        });
+    }
+
+    function getFriends(){
+        var currentUser = firebase.auth().currentUser;
+                var ref = firebase.database().ref('users/'+currentUser.uid+'/friends');
+
+                ref.on("value", function(snapshot) {
+                   console.log(snapshot.val());
+                   return snapshot.val();
+                }, function (error) {
+                   console.log("Error: " + error.code);
+                });
+    }
+    function openUserPage(){
+       window.open ('user.html','_self',false);
+    }

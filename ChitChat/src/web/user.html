@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<!-- Firebase App is always required and must be first -->
+<script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-app.js"></script>
+
+<!-- Add additional services that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-messaging.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-functions.js"></script>
+
+<script>
+// Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDz-XCOZbklX-wA_hJqfxfI3-J_1WnEe9s",
+    authDomain: "chitchat-381f6.firebaseapp.com",
+    databaseURL: "https://chitchat-381f6.firebaseio.com",
+    projectId: "chitchat-381f6",
+    storageBucket: "chitchat-381f6.appspot.com",
+    messagingSenderId: "773934492943"
+  };
+  firebase.initializeApp(config);
+  </script>
+<script type="text/javascript" src = "../scripts/ChitChat.js" ></script>
+<html lang="en">
+<head>
+    <title>User</title>
+</head>
+<body>
+<div id = "user_div" class="loggedin-div">
+    <h3 id="greet_user"></h3>
+    <p>Wekcome to our chat page</p>
+    <button onClick="getUserName()">press</button>
+    <button onclick="logout()">Logout</button>
+    <button onClick="openUserPage()">User</button>;
+</div>
+</body>
+</html>
