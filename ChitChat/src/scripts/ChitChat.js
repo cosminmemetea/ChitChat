@@ -108,6 +108,11 @@
         });
     }
 
+    function showFriends(userID){
+
+    }
+
+
     function getFriends(){
         var currentUser = firebase.auth().currentUser;
                 var ref = firebase.database().ref('users/'+currentUser.uid+'/friends');
@@ -121,4 +126,8 @@
     }
     function openUserPage(){
        window.open ('user.html','_self',false);
+    }
+
+    function getUserByPattern(pattern){
+        var ref = firebase.database().ref('users')
     }

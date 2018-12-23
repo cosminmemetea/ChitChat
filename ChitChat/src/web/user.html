@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <meta charset="UTF-8">
+<meta charset="UTF-8">
 <!-- Firebase App is always required and must be first -->
 <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-app.js"></script>
 
@@ -7,8 +8,6 @@
 <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-database.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-messaging.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-functions.js"></script>
-
 <script>
 // Initialize Firebase
   var config = {
@@ -20,14 +19,16 @@
     messagingSenderId: "773934492943"
   };
   firebase.initializeApp(config);
-  </script>
-<script type="text/javascript" src = "../scripts/ChitChat.js" ></script>
-<html lang="en">
+</script>
+<html>
 <head>
-    <title>User</title>
+    <link rel="stylesheet" href="../css/user-style.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
+    <title>ChitChat</title>
+    <link rel="shortcut icon" href="../img/minil.png" />
 </head>
 <body>
-<div id = "user_div" class="loggedin-div">
+<div id = "body" class="logged-in">
     <h3 id="greet_user"></h3>
     <p>Wekcome to our chat page</p>
     <button onClick="getUserName()">press</button>

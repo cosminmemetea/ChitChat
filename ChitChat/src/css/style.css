@@ -1,9 +1,6 @@
 @charset "UTF-8";
 body{
-    background: #fff;
-    padding: 0px;
-    margin: 0px;
-    font-family: 'Nunito Sans', sans-serif;
+   background: #DCC9E7;
 }
 input,button{
     font-family: 'Nunito Sans', sans-serif;
@@ -23,4 +20,128 @@ input,button{
     outline: none;
     width: 100%;
     margin-bottom: 20px;
+}
+
+.header {
+    background: #8A25B1;
+}
+
+.header {
+    border: 1px solid #000;
+    border-radius: 0;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+    height: 80px;
+
+}
+.header-content {
+
+    width: 960px;
+    margin: 0 auto;
+        margin-top: 0px;
+        margin-right: auto;
+        margin-bottom: 0px;
+        margin-left: auto;
+    text-align: right;
+
+}
+
+div.login_form_container {
+    float: right;
+    margin-top: 15px;
+}
+.login_form {
+signup_div
+    height: 10px;
+    margin: 2px 10px 0 0;
+    float: left;
+    display: inline-block;
+
+}
+.login_form div {
+    position: relative;
+}
+#username {
+    width: 190px;
+    margin: 1px 0 0 0;
+    padding: 2px;
+
+}
+.login_form input {
+    vertical-align: middle;
+    margin: 0;
+
+}
+
+.login_form #signedin {
+
+    clear: both;
+
+}
+.login_form div {
+    position: relative;
+}
+.header #logo_container {
+
+}
+
+div#logo_container {
+    margin-left:0;
+    float: left;
+}
+
+.login_small_txt {
+
+    font-size: 10px;
+    color: #fff;
+
+}
+#password_form.login_form {
+
+    margin: 2px 0 0 0;
+
+}
+
+input.login_password {
+    margin: 0 4px 0 0;
+    width: 120px;
+    padding: 2px;
+
+}
+
+.login_form input.greyBtn {
+    margin: 0;
+    text-align: center;
+
+}
+
+.login_form div {
+    position: relative;
+
+}
+div.login_small_txt {
+    height: 100%;
+    vertical-align: middle;
+
+}
+
+#forgot_password {
+
+    vertical-align: middle;
+    text-decoration: underline;
+    color: #FFF;
+    white-space: nowrap;
+    line-height: 22px;
+    margin-left: 2px;
+
+}
+.login_small_txt {
+    font-size: 10px;
+    color: #fff;
+
+}
+.registration{
+    margin-right:165px;
 }
