@@ -37,22 +37,26 @@
             </div>
             <div>
                 <div class="login_form_container">
-                    <div class="login_form">
-                        <div>
-                            <input tabindex="1" id="username" name="username" type="email" class="login_textbox man" placeholder="Email">
+                    <form action="user.html">
+                        <div class="login_form">
+                            <div>
+                                <input tabindex="1" id="username" name="username" type="email" class="login_textbox man" placeholder="Email">
+                            </div>
+                            <div id="signedin" class="">
+                                <input id="remember_me" tabindex="4" class="checkbox" checked="checked" name="perslogin" type="checkbox" value="Y">
+                                <label class="login_small_txt dib" for="remember_me">Keep me signed in</label>
+                            </div>
                         </div>
-                        <div id="signedin" class="">
-                            <input id="remember_me" tabindex="4" class="checkbox" checked="checked" name="perslogin" type="checkbox" value="Y">
-                            <label class="login_small_txt dib" for="remember_me">Keep me signed in</label>
-                        </div>
-                    </div>
-                    <div id="password_form" class="login_form">
+                        <div id="password_form" class="login_form">
                             <input tabindex="2" id="password" name="password" type="password" class="login_password mbn" placeholder="Password">
-                            <input id="signInBtn" class="greyBtn btn mtn" tabindex="3"  value="Sign In" type="submit" formaction="user.html">
-                        <div class="login_small_txt dib">
-                            <a id="forgot_password" href="forgot_password.html">Forgot your password?</a>
+                            <input  id="signInBtn" class="greyBtn btn mtn" tabindex="3"  value="Sign In" type="submit" >
+
+                            <div class="login_small_txt dib">
+                                <a id="forgot_password" href="forgot_password.html">Forgot your password?</a>
+                            </div>
                         </div>
-                    </div>
+                    </form>
+
                 </div>
             </div>
 

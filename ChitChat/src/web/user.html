@@ -24,11 +24,26 @@
 <head>
     <link rel="stylesheet" href="../css/user-style.css">
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
     <title>ChitChat</title>
     <link rel="shortcut icon" href="../img/minil.png" />
 </head>
 <body>
+<div class ="header">
+    <div class="user-box">
+        <a class="user-btn" href="#">
+            <i class="fas fa-user"></i>
+        </a>
+    </div>
+    <div class="search-box">
+        <input class="search-txt" type="text" name="" placeholder="Type to search">
+        <a class="search-btn" href="#">
+            <i class="fas fa-search"></i>
+        </a>
+    </div>
+</div>
 <div id = "body" class="logged-in">
+
     <h3 id="greet_user"></h3>
     <p>Wekcome to our chat page</p>
     <button onClick="getUserName()">press</button>
