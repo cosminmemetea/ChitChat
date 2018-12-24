@@ -26,22 +26,7 @@ body{
     border-radius:40px;
     padding:10px;
 }
-.user-box{
-    position:absolute;
-    top: 3.5%;
-    left:3%;
-    transform:translate(-10%,-10%);
-    background:#DCC9E7;
-    height 40px;
-    border-radius:40px;
-    padding:10px;
-}
-.user-btn{
-    float:center;
-    width:20px;
-    height:20px;
-    border-radius:50%;
-}
+
 .search-box:hover > .search-txt{
     width:240px;
     padding: 0 6px;
@@ -60,6 +45,40 @@ body{
     width:0;
 }
 .search-btn{
+    float:center;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+}
+
+.user-box{
+    position:absolute;
+    top: 3.5%;
+    left:3%;
+    transform:translate(-10%,-10%);
+    background:#DCC9E7;
+    height 40px;
+    border-radius:40px;
+    padding:10px;
+}
+.user-btn{
+    float:center;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+}
+
+.log-out-box{
+ position:absolute;
+    top: 3.5%;
+    right:3%;
+    transform:translate(-10%,-10%);
+    background:#DCC9E7;
+    height 40px;
+    border-radius:40px;
+    padding:10px;
+}
+.log-out-btn{
     float:center;
     width:20px;
     height:20px;
