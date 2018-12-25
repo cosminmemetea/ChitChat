@@ -1,23 +1,4 @@
 		/**
-		 * This method will execute when the login button is pressed.
-		 */
-		firebase.auth().onAuthStateChanged(function(user) {
-			if (user) {
-				// User is signed in.
-				document.getElementById("user_div").style.display="initial";
-				document.getElementById("login_div").style.display="none";
-				document.getElementById("signup_div").style.display="none";
-//				openUserPage();
-			} else {
-				// No user is signed in.
-				document.getElementById("user_div").style.display="none";
-				document.getElementById("login_div").style.display="initial";
-				document.getElementById("signup_div").style.display="initial";
-			}
-		});
-
-
-		/**
 		 * Method used to login a user.
 		 * @param {*} email_field  the email user field id from the html element.
 		 * @param {*} password_field the password field id from the html element.
@@ -33,6 +14,8 @@
 					window.alert("Error: "+errorCode+" :" + errorMessage );
 				});
 			window.alert(userEmail + " " + userPass);
+			window.close();
+			window.open("../web/user.html",'_self',false);
 		}
 
 		/**
@@ -55,7 +38,7 @@
 			});
 			//TODO add field when the UI will be imlemented.
 			addUserInfo(userName,userEmail,null);
-			login(userEmail,userPass);
+			login(email_field,password_field);
 		}
 
 
