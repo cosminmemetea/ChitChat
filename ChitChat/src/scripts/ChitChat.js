@@ -52,6 +52,8 @@
 				}).catch(function(error) {
 					// An error happened.
 				});
+			window.close();
+            window.open("../web/home.html",'_self',false);
 		}
 
 		/**
@@ -92,7 +94,6 @@
     }
 
     function showFriends(userID){
-
     }
 
 

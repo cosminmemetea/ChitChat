@@ -21,6 +21,7 @@
 </script>
 <html>
 <head>
+    <script type="text/javascript" src = "../scripts/ChitChat.js" ></script>
     <link rel="stylesheet" href="../css/user-style.css">
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
@@ -41,9 +42,7 @@
         </a>
     </div>
     <div class="log-out-box">
-        <a  href="home.html">
-            <i class="fas fa-sign-out-alt"></i>
-        </a>
+        <i  onclick="logout()" class="fas fa-sign-out-alt"></i>
     </div>
 </div>
 <h3 id="greet_user"></h3>
@@ -52,7 +51,9 @@
 <button onclick="logout()">Logout</button>
 <button onClick="openUserPage()">User</button>;
 <div id = "body" class="logged-in">
-    <div class="left">Friends</div>
+    <div class="left">Friends
+    <script></script>
+    </div>
     <div class="center">News</div>
     <div class="right">Chat</div>
 </div>
