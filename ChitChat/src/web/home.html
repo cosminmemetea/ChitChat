@@ -37,7 +37,6 @@
             </div>
             <div>
                 <div class="login_form_container">
-                    <form action="user.html">
                         <div class="login_form">
                             <div>
                                 <input tabindex="1" id="username" name="username" type="email" class="login_textbox man" placeholder="Email">
@@ -49,14 +48,12 @@
                         </div>
                         <div id="password_form" class="login_form">
                             <input tabindex="2" id="password" name="password" type="password" class="login_password mbn" placeholder="Password">
-                            <input  id="signInBtn" class="greyBtn btn mtn" tabindex="3"  value="Sign In" type="submit" >
+                            <input  id="signInBtn" class="greyBtn btn mtn" tabindex="3"  value="Sign In" type="button" onclick="login('username','password')">
 
                             <div class="login_small_txt dib">
                                 <a id="forgot_password" href="forgot_password.html">Forgot your password?</a>
                             </div>
                         </div>
-                    </form>
-
                 </div>
             </div>
 
