@@ -1,26 +1,20 @@
 body{
     background: #DCC9E7;
     font-family: 'Nunito Sans', sans-serif;
-}
-.logged-in{
-    background: #DCC9E7;
+    margin:0;
 }
 
 .header{
+    margin-top: 0px;
+    margin-left:0px;
     background: #8A25B1;
-    border: 1px solid #000;
-    border-radius: 0;
-        border-top-left-radius: 0px;
-        border-top-right-radius: 0px;
-        border-bottom-right-radius: 0px;
-        border-bottom-left-radius: 0px;
     height: 60px;
 }
 .search-box{
     position:absolute;
-    top: 3.5%;
-    left:15%;
-    transform:translate(-10%,-10%);
+    top:2%;
+    left:25%;
+    transform:translate(0%,-10%);
     background:#DCC9E7;
     height 40px;
     border-radius:40px;
@@ -53,7 +47,7 @@ body{
 
 .user-box{
     position:absolute;
-    top: 3.5%;
+    top: 2%;
     left:3%;
     transform:translate(-10%,-10%);
     background:#DCC9E7;
@@ -69,8 +63,8 @@ body{
 }
 
 .log-out-box{
- position:absolute;
-    top: 3.5%;
+    position:absolute;
+    top:2%;
     right:3%;
     transform:translate(-10%,-10%);
     background:#DCC9E7;
@@ -83,4 +77,31 @@ body{
     width:20px;
     height:20px;
     border-radius:50%;
+}
+.left {
+  top: 60px;
+  width:25%;
+  height:100%;
+  left: 0;
+  position: fixed;
+  right: 0;
+  background:#DCC9E7;
+}
+.center{
+  top: 60px;
+  width:50%;
+  height:100%;
+  left: 25%;
+  position: fixed;
+  right: 25%;
+  background:#DDD;
+}
+.right{
+  top: 60px;
+  width:25%;
+  height:100%;
+  left: 75%;
+  position: fixed;
+  right: 0;
+  background:#DCC9E7;
 }
