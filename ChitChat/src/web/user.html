@@ -29,9 +29,9 @@
         </a>
     </div>
     <div class="search-box">
-        <input class="search-txt" type="text" name="" placeholder="Type to search">
+        <input class="search-txt" id="search-txt" type="text" name="" placeholder="Type to search">
         <a class="search-btn" href="#">
-            <i class="fas fa-search"></i>
+            <i type=button onclick="findUsers('usersList','search-txt');" class="fas fa-search"></i>
         </a>
 
     </div>
@@ -51,6 +51,9 @@
         <script>showFriends('friendsList')</script>
     </div>
     <div class="center">News
+        <ul id="usersList">
+        </ul>
+
     </div>
     <div class="right">Chat</div>
 </div>

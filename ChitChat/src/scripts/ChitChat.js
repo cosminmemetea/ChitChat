@@ -108,18 +108,22 @@ function openConversationWithUser(userID)
     });
 }
 
+/**
+ * Show all friends of a user in the specified HTML element
+ * @param elementID
+ */
 function showFriends(elementID){
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
-            var currentUser = firebase.auth().currentUser;
-            var ref = firebase.database().ref('users/'+currentUser.uid+'/friends');
+            const currentUser = firebase.auth().currentUser;
+            const ref = firebase.database().ref('users/'+currentUser.uid+'/friends');
 
             ref.on("value", function(snapshot) {
                 console.log(snapshot.val());
                 const friends = Object.values(snapshot.val());
                 for(let i = 0; i < friends.length;i++){
                     let obj = friends[i];
-                    showFriend(elementID,obj);
+                    showUser(elementID,obj);
                 }
                 return snapshot.val();
             }, function (error) {
@@ -131,17 +135,47 @@ function showFriends(elementID){
     });
 }
 
-function showFriend(elementID,friend){
+/**
+ *  Show a user as an element of a list specified by its element ID.
+ * @param elementID
+ * @param user
+ */
+function showUser(elementID, user){
     const node = document.createElement("LI");
-    const textNode = document.createTextNode(friend.username);
+    const textNode = document.createTextNode(user.username);
     node.appendChild(textNode);
     document.getElementById(elementID).appendChild(node);
 
     const img = document.createElement('img');
-    img.src = friend.image;
+    img.src = user.image;
     img.width=50;
     img.height=50;
     document.getElementById(elementID).appendChild(img);
+}
+
+/**
+ *Find  users that match the pattern from the textProviderID HTML element.
+ * @param elementID where to render the names and images for the users.
+ * @param textProviderID
+ */
+function findUsers(elementID, textProviderID) {
+    const usersTable = document.getElementById(elementID);
+    while(usersTable.firstChild){
+        usersTable.removeChild(usersTable.firstChild);
+    }
+    const  pattern = document.getElementById(textProviderID).value;
+    const ref = firebase.database().ref('users/');
+    ref.on("value", function(snapshot) {
+        const users = Object.values(snapshot.val());
+        for(let i = 0; i < users.length;i++){
+            let obj = users[i];
+            if(obj.username.includes(pattern) && pattern != ''){
+                showUser(elementID,obj);
+            }
+        }
+    }, function (error) {
+        console.log("Error: " + error.code);
+    });
 }
 
 function uploadProfileImage(){
@@ -156,5 +190,4 @@ function uploadProfileImage(){
         var downloadURL=uploadTask.snapshot.downloadURL;
         //TODO add the image url to each user.
     })
-
 }
