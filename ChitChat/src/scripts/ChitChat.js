@@ -3,21 +3,30 @@
 		 * @param {*} email_field  the email user field id from the html element.
 		 * @param {*} password_field the password field id from the html element.
 		 */
-		function login(email_field , password_field){
-			var  userEmail = document.getElementById(email_field).value;
-			var  userPass = document.getElementById(password_field).value;
+function login(email_field , password_field){
 
-			firebase.auth().signInWithEmailAndPassword(userEmail, userPass).catch(function(error) {
-					// Handle Errors here.
-					var errorCode = error.code;
-					var errorMessage = error.message;
-					window.alert("Error: "+errorCode+" :" + errorMessage );
-				});
-			window.alert(userEmail + " " + userPass);
-			window.close();
-			window.open("../web/user.html",'_self',false);
-		}
+    var  userEmail = document.getElementById(email_field).value;
+    var  userPass = document.getElementById(password_field).value;
+   firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+    .then(function() {
+    // Existing and future Auth states are now persisted in the current
+    // session only. Closing the window would clear any existing state even
+    // if a user forgets to sign out.
+    // ...
+    // New sign-in will be persisted with session persistence.
+     return firebase.auth().signInWithEmailAndPassword(userEmail, userPass);
 
+    })
+    .catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    console.log(errorMessage+":"+errorCode);
+    });
+     window.alert(userEmail + " " + userPass);
+    window.open("../web/user.html",'_self',false);
+
+}
 		/**
 		 * Used to sign up a new user.
 		 * @param { } username_field 
@@ -52,7 +61,6 @@
 				}).catch(function(error) {
 					// An error happened.
 				});
-			window.close();
             window.open("../web/home.html",'_self',false);
 		}
 
@@ -93,21 +101,36 @@
         });
     }
 
-    function showFriends(userID){
+    function showFriends(elementID){
+     firebase.auth().onAuthStateChanged(function(user) {
+             if (user) {
+               var currentUser = firebase.auth().currentUser;
+                              var ref = firebase.database().ref('users/'+currentUser.uid+'/friends');
+
+                              ref.on("value", function(snapshot) {
+                                 console.log(snapshot.val());
+                                 var friends = Object.values(snapshot.val());
+                                 for(var i = 0; i < friends.length;i++){
+                                   var obj = friends[i];
+                                   showFriend(elementID,obj.username);
+                                 }
+                                 return snapshot.val();
+                              }, function (error) {
+                                 console.log("Error: " + error.code);
+                              });
+             } else {
+                console.log("User is not signed in");
+             }
+           });
     }
 
-
-    function getFriends(){
-        var currentUser = firebase.auth().currentUser;
-                var ref = firebase.database().ref('users/'+currentUser.uid+'/friends');
-
-                ref.on("value", function(snapshot) {
-                   console.log(snapshot.val());
-                   return snapshot.val();
-                }, function (error) {
-                   console.log("Error: " + error.code);
-                });
+    function showFriend(elementID,username){
+        var node = document.createElement("LI");
+        var textNode = document.createTextNode(username);
+        node.appendChild(textNode);
+        document.getElementById(elementID).appendChild(node);
     }
+
     function openUserPage(){
        window.open ('user.html','_self',false);
     }
