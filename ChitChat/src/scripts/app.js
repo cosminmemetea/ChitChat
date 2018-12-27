@@ -2,9 +2,10 @@
  * This file is responsible for configuration of firebase
  * and another configurations for this project.
  */
-<script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
+<!-- Firebase App is always required and must be first -->
+<!-- Firebase App is always required and must be first -->
 
-function init() {
+function initFirebase() {
     // Initialize Firebase
   const config = {
     apiKey: "AIzaSyDz-XCOZbklX-wA_hJqfxfI3-J_1WnEe9s",
@@ -15,7 +16,7 @@ function init() {
     messagingSenderId: "773934492943"
   };
   firebase.initializeApp(config);
-};
+}
 
 
 

@@ -23,8 +23,15 @@ function login(email_field , password_field){
             var errorMessage = error.message;
             console.log(errorMessage+":"+errorCode);
         });
-    window.alert(userEmail + " " + userPass);
-    window.open("../web/user.html",'_self',false);
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            window.alert(userEmail + " " + userPass);
+            window.open("../web/user.html",'_self',false);
+        } else {
+            console.log("User is not signed in");
+        }
+    });
+
 
 }
 /**
@@ -34,14 +41,14 @@ function login(email_field , password_field){
  * @param {*} password_field
  */
 function signUp(username_field, email_field, password_field){
-    var  userName = document.getElementById(username_field).value;
-    var  userEmail = document.getElementById(email_field).value;
-    var  userPass = document.getElementById(password_field).value;
+    const  userName = document.getElementById(username_field).value;
+    const  userEmail = document.getElementById(email_field).value;
+    const  userPass = document.getElementById(password_field).value;
 
     firebase.auth().createUserWithEmailAndPassword(userEmail, userPass).catch(function(error) {
         // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
+        const errorCode = error.code;
+        const errorMessage = error.message;
         window.alert("Error: "+errorCode+" :" + errorMessage );
         return;
     });
@@ -109,10 +116,10 @@ function showFriends(elementID){
 
             ref.on("value", function(snapshot) {
                 console.log(snapshot.val());
-                var friends = Object.values(snapshot.val());
-                for(var i = 0; i < friends.length;i++){
-                    var obj = friends[i];
-                    showFriend(elementID,obj.username);
+                const friends = Object.values(snapshot.val());
+                for(let i = 0; i < friends.length;i++){
+                    let obj = friends[i];
+                    showFriend(elementID,obj);
                 }
                 return snapshot.val();
             }, function (error) {
@@ -124,17 +131,30 @@ function showFriends(elementID){
     });
 }
 
-function showFriend(elementID,username){
-    var node = document.createElement("LI");
-    var textNode = document.createTextNode(username);
+function showFriend(elementID,friend){
+    const node = document.createElement("LI");
+    const textNode = document.createTextNode(friend.username);
     node.appendChild(textNode);
     document.getElementById(elementID).appendChild(node);
+
+    const img = document.createElement('img');
+    img.src = friend.image;
+    img.width=50;
+    img.height=50;
+    document.getElementById(elementID).appendChild(img);
 }
 
-function openUserPage(){
-    window.open ('user.html','_self',false);
-}
+function uploadProfileImage(){
+    const filename = selectedFile.name;
+    const storageRef = filebase.storage().ref('/profileImages/'+filename);
+    const uploadTask = storageRef.put(selectedFile);
+    uploadTask.on('state_changed', function (snapshot) {
+        //Observe state change events such as progress, pause, resume
+    },function (error) {
+     console.log(error);
+    },function () {
+        var downloadURL=uploadTask.snapshot.downloadURL;
+        //TODO add the image url to each user.
+    })
 
-function getUserByPattern(pattern){
-    var ref = firebase.database().ref('users')
 }

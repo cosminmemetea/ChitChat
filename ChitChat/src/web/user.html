@@ -6,19 +6,11 @@
 <!-- Add additional services that you want to use -->
 <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-storage.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-messaging.js"></script>
-<script>
-// Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyDz-XCOZbklX-wA_hJqfxfI3-J_1WnEe9s",
-    authDomain: "chitchat-381f6.firebaseapp.com",
-    databaseURL: "https://chitchat-381f6.firebaseio.com",
-    projectId: "chitchat-381f6",
-    storageBucket: "chitchat-381f6.appspot.com",
-    messagingSenderId: "773934492943"
-  };
-  firebase.initializeApp(config);
-</script>
+<script type="text/javascript" src = "../scripts/app.js" ></script>
+<script>initFirebase()</script>
+
 <html>
 <head>
     <script type="text/javascript" src = "../scripts/ChitChat.js" ></script>
@@ -31,6 +23,7 @@
 <body>
 <div class ="header" >
     <div class="user-box">
+
         <a class="user-btn" href="#">
             <i class="fas fa-user"></i>
         </a>
@@ -40,6 +33,7 @@
         <a class="search-btn" href="#">
             <i class="fas fa-search"></i>
         </a>
+
     </div>
     <div class="log-out-box">
         <i  onclick="logout()" class="fas fa-sign-out-alt"></i>
@@ -56,7 +50,8 @@
         </ul>
         <script>showFriends('friendsList')</script>
     </div>
-    <div class="center">News</div>
+    <div class="center">News
+    </div>
     <div class="right">Chat</div>
 </div>
 </body>

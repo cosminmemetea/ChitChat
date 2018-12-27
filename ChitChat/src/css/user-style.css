@@ -16,7 +16,6 @@ body{
     left:25%;
     transform:translate(0%,-10%);
     background:#DCC9E7;
-    height 40px;
     border-radius:40px;
     padding:10px;
 }
@@ -39,7 +38,7 @@ body{
     width:0;
 }
 .search-btn{
-    float:center;
+    float: top;
     width:20px;
     height:20px;
     border-radius:50%;
@@ -51,12 +50,11 @@ body{
     left:3%;
     transform:translate(-10%,-10%);
     background:#DCC9E7;
-    height 40px;
     border-radius:40px;
     padding:10px;
 }
 .user-btn{
-    float:center;
+    float: top;
     width:20px;
     height:20px;
     border-radius:50%;
@@ -68,40 +66,39 @@ body{
     right:3%;
     transform:translate(-10%,-10%);
     background:#DCC9E7;
-    height 40px;
     border-radius:40px;
     padding:10px;
 }
 .log-out-btn{
-    float:center;
+    float: top;
     width:20px;
     height:20px;
     border-radius:50%;
 }
 .left {
-  top: 60px;
-  width:25%;
-  height:100%;
-  left: 0;
-  position: fixed;
-  right: 0;
-  background:#DCC9E7;
+    top: 60px;
+    width:25%;
+    height:100%;
+    left: 0;
+    position: fixed;
+    right: 0;
+    background:#DCC9E7;
 }
 .center{
-  top: 60px;
-  width:50%;
-  height:100%;
-  left: 25%;
-  position: fixed;
-  right: 25%;
-  background:#DDD;
+    top: 60px;
+    width:50%;
+    height:100%;
+    left: 25%;
+    position: fixed;
+    right: 25%;
+    background:#DDD;
 }
 .right{
-  top: 60px;
-  width:25%;
-  height:100%;
-  left: 75%;
-  position: fixed;
-  right: 0;
-  background:#DCC9E7;
+    top: 60px;
+    width:25%;
+    height:100%;
+    left: 75%;
+    position: fixed;
+    right: 0;
+    background:#DCC9E7;
 }
