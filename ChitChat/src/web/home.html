@@ -8,16 +8,16 @@
 <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-database.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-messaging.js"></script>
 <script>
-// Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyDz-XCOZbklX-wA_hJqfxfI3-J_1WnEe9s",
-    authDomain: "chitchat-381f6.firebaseapp.com",
-    databaseURL: "https://chitchat-381f6.firebaseio.com",
-    projectId: "chitchat-381f6",
-    storageBucket: "chitchat-381f6.appspot.com",
-    messagingSenderId: "773934492943"
-  };
-  firebase.initializeApp(config);
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyDz-XCOZbklX-wA_hJqfxfI3-J_1WnEe9s",
+        authDomain: "chitchat-381f6.firebaseapp.com",
+        databaseURL: "https://chitchat-381f6.firebaseio.com",
+        projectId: "chitchat-381f6",
+        storageBucket: "chitchat-381f6.appspot.com",
+        messagingSenderId: "773934492943"
+    };
+    firebase.initializeApp(config);
 </script>
 <html>
 <head>
@@ -28,60 +28,60 @@
     <link rel="shortcut icon" href="../img/minil.png" />
 </head>
 <body>
-    <div class="header">
-        <div class="header-content">
-            <div id="logo_container" >
-                <a href="home.html" id="tagged_logo" class="header_content">
-                    <img class="png_logo" src="../img/logo.png" width="150" height="80">
-                </a>
-            </div>
-            <div>
-                <div class="login_form_container">
-                        <div class="login_form">
-                            <div>
-                                <input tabindex="1" id="username" name="username" type="email" class="login_textbox man" placeholder="Email">
-                            </div>
-                            <div id="signedin" class="">
-                                <input id="remember_me" tabindex="4" class="checkbox" checked="checked" name="perslogin" type="checkbox" value="Y">
-                                <label class="login_small_txt dib" for="remember_me">Keep me signed in</label>
-                            </div>
-                        </div>
-                        <div id="password_form" class="login_form">
-                            <input tabindex="2" id="password" name="password" type="password" class="login_password mbn" placeholder="Password">
-                            <input  id="signInBtn" class="greyBtn btn mtn" tabindex="3"  value="Sign In" type="button" onclick="login('username','password')">
+<div class="header">
+    <div class="header-content">
+        <div id="logo_container" >
+            <a href="home.html" id="tagged_logo" class="header_content">
+                <img class="png_logo" src="../img/logo.png" width="150" height="80">
+            </a>
+        </div>
+        <div>
+            <div class="login_form_container">
+                <div class="login_form">
+                    <div>
+                        <input tabindex="1" id="username" name="username" type="email" class="login_textbox man" placeholder="Email">
+                    </div>
+                    <div id="signedin" class="">
+                        <input id="remember_me" tabindex="4" class="checkbox" checked="checked" name="perslogin" type="checkbox" value="Y">
+                        <label class="login_small_txt dib" for="remember_me">Keep me signed in</label>
+                    </div>
+                </div>
+                <div id="password_form" class="login_form">
+                    <input tabindex="2" id="password" name="password" type="password" class="login_password mbn" placeholder="Password">
+                    <input  id="signInBtn" class="greyBtn btn mtn" tabindex="3"  value="Sign In" type="button" onclick="login('username','password')">
 
-                            <div class="login_small_txt dib">
-                                <a id="forgot_password" href="forgot_password.html">Forgot your password?</a>
-                            </div>
-                        </div>
+                    <div class="login_small_txt dib">
+                        <a id="forgot_password" href="forgot_password.html">Forgot your password?</a>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <div class="clear_both"></div>
-        </div>
-        <!-- headercontent -->
+        <div class="clear_both"></div>
     </div>
-    <div class="body" align="right">
-        <div id = "registration" class="registration">
-            <h3 align="right">Create a new account</h3>
-            <table  >
-                <tbody align="right">
-                <tr>
-                    <td><input type="text" placeholder="Username" id="sign_up_username_field"></td>
-                </tr>
-                <tr>
-                    <td> <input type="text" placeholder="Email" id="sign_up_email_field"></td>
-                </tr>
-                <tr>
-                    <td> <input type="text" placeholder="Password" id="sign_up_password_field"></td>
-                </tr>
-                <tr>
-                    <td><button onclick="signUp('sign_up_username_field','sign_up_email_field','sign_up_password_field')">
-                        Sign Up</button></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+    <!-- headercontent -->
+</div>
+<div class="body" align="right">
+    <div id = "registration" class="registration">
+        <h3 align="right">Create a new account</h3>
+        <table  >
+            <tbody align="right">
+            <tr>
+                <td><input type="text" placeholder="Username" id="sign_up_username_field"></td>
+            </tr>
+            <tr>
+                <td> <input type="text" placeholder="Email" id="sign_up_email_field"></td>
+            </tr>
+            <tr>
+                <td> <input type="text" placeholder="Password" id="sign_up_password_field"></td>
+            </tr>
+            <tr>
+                <td><button onclick="signUp('sign_up_username_field','sign_up_email_field','sign_up_password_field')">
+                    Sign Up</button></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
+</div>
 </body>
 </html>
