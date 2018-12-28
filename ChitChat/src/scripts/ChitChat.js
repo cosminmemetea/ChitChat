@@ -177,7 +177,13 @@ function findUsers(elementID, textProviderID) {
         console.log("Error: " + error.code);
     });
 }
+function openForm() {
+    document.getElementById("myForm").style.display = "block";
+}
 
+function closeForm() {
+    document.getElementById("myForm").style.display = "none";
+}
 function uploadProfileImage(){
     const filename = selectedFile.name;
     const storageRef = filebase.storage().ref('/profileImages/'+filename);
