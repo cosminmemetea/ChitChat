@@ -6,7 +6,6 @@ var selfID;
  * @param {*} password_field the password field id from the html element.
  */
 function login(email_field , password_field){
-
     var  userEmail = document.getElementById(email_field).value;
     var  userPass = document.getElementById(password_field).value;
     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
@@ -29,12 +28,11 @@ function login(email_field , password_field){
         if (user) {
             window.alert(userEmail + " " + userPass);
             window.open("../web/user.html",'_self',false);
+            console.log(user.uid);
         } else {
             console.log("User is not signed in");
         }
     });
-
-
 }
 /**
  * Used to sign up a new user.
@@ -149,11 +147,7 @@ function showUser(elementID, user, key){
  */
 function openConversationWithUser(userID)
 {
-    //TODO refactor this code.
-    const chatLogs = document.getElementById('chat-logs');
-    while(chatLogs.firstChild){
-        chatLogs.removeChild(chatLogs.firstChild);
-    }
+    clearGUIElementByID('chat-logs')
     friendID=userID;
     var ref = firebase.database().ref('users/'+selfID+'/conversations/'+userID+'/messages');
 
@@ -216,10 +210,7 @@ function showMessage(elementID,message,messageID, userID) {
  * @param textProviderID
  */
 function findUsers(elementID, textProviderID) {
-    const usersTable = document.getElementById(elementID);
-    while(usersTable.firstChild){
-        usersTable.removeChild(usersTable.firstChild);
-    }
+    clearGUIElementByID(elementID)
     const  pattern = document.getElementById(textProviderID).value;
     const ref = firebase.database().ref('users/');
     ref.on("value", function(snapshot) {
@@ -234,13 +225,10 @@ function findUsers(elementID, textProviderID) {
         console.log("Error: " + error.code);
     });
 }
-function openForm() {
-    document.getElementById("myForm").style.display = "block";
-}
 
-function closeForm() {
-    document.getElementById("myForm").style.display = "none";
-}
+/**
+ * TODO implement this method.
+ */
 function uploadProfileImage(){
     const filename = selectedFile.name;
     const storageRef = filebase.storage().ref('/profileImages/'+filename);
@@ -255,12 +243,25 @@ function uploadProfileImage(){
     })
 }
 
+/**
+ * Clear all children of a specified element.
+ * @param elementID
+ */
+function clearGUIElementByID(elementID) {
+    const guiElement = document.getElementById(elementID);
+    while (guiElement.firstChild) {
+        guiElement.removeChild(guiElement.firstChild);
+    }
+}
+
+/**
+ * Write the message from the input text area into the database.
+ * The text area is cleared after the message is persisted.
+ * @param inputTextAreaID
+ */
 function writeMessage(inputTextAreaID) {
-    console.log(friendID);
+    clearGUIElementByID('chat-logs');
     const message = document.getElementById(inputTextAreaID).value;
-
-
-    const currentUser = firebase.auth().currentUser;
     const currentUserConversationsRef = firebase.database().ref('users/'+selfID+'/conversations/'+friendID+'/messages/');
     const friendConversationsRef = firebase.database().ref('users/'+friendID+'/conversations/'+selfID+'/messages/');
     const newSelfMessageRef = currentUserConversationsRef.push();
@@ -273,7 +274,7 @@ function writeMessage(inputTextAreaID) {
         text:message
     });
     newFriendMessageRef.set({
-        authorID:currentUser.uid,
+        authorID:selfID,
         date:currentDate.toLocaleString(),
         text:message
     });
