@@ -1,3 +1,5 @@
+var friendID;
+var selfID;
 /**
  * Method used to login a user.
  * @param {*} email_field  the email user field id from the html element.
@@ -100,7 +102,7 @@ function showFriends(elementID){
         if (user) {
             const currentUser = firebase.auth().currentUser;
             const ref = firebase.database().ref('users/'+currentUser.uid+'/friends');
-
+            selfID=currentUser.uid;
             ref.on("value", function(snapshot) {
                 console.log(snapshot.val());
                 const friends = Object.values(snapshot.val());
@@ -152,15 +154,15 @@ function openConversationWithUser(userID)
     while(chatLogs.firstChild){
         chatLogs.removeChild(chatLogs.firstChild);
     }
-    var currentUser = firebase.auth().currentUser;
-    var ref = firebase.database().ref('users/'+currentUser.uid+'/conversations/'+userID+'/messages');
+    friendID=userID;
+    var ref = firebase.database().ref('users/'+selfID+'/conversations/'+userID+'/messages');
 
     ref.on("value", function(snapshot) {
         console.log(snapshot.val());
         const messages=Object.values(snapshot.val());
         const messagesKeys=Object.keys(snapshot.val());
         for(let i = 0; i < messages.length;i++){
-            showMessage('chat-logs', messages[i],messagesKeys[i],currentUser.uid);
+            showMessage('chat-logs', messages[i],messagesKeys[i],selfID);
         }
         return snapshot.val();
     }, function (error) {
@@ -251,4 +253,29 @@ function uploadProfileImage(){
         var downloadURL=uploadTask.snapshot.downloadURL;
         //TODO add the image url to each user.
     })
+}
+
+function writeMessage(inputTextAreaID) {
+    console.log(friendID);
+    const message = document.getElementById(inputTextAreaID).value;
+
+
+    const currentUser = firebase.auth().currentUser;
+    const currentUserConversationsRef = firebase.database().ref('users/'+selfID+'/conversations/'+friendID+'/messages/');
+    const friendConversationsRef = firebase.database().ref('users/'+friendID+'/conversations/'+selfID+'/messages/');
+    const newSelfMessageRef = currentUserConversationsRef.push();
+    const newFriendMessageRef=friendConversationsRef.push();
+    const currentDate = new Date();
+    console.log(message+":"+currentDate.toLocaleString());
+    newSelfMessageRef.set({
+        authorID:friendID,
+        date:currentDate.toLocaleString(),
+        text:message
+    });
+    newFriendMessageRef.set({
+        authorID:currentUser.uid,
+        date:currentDate.toLocaleString(),
+        text:message
+    });
+    document.getElementById(inputTextAreaID).value="";
 }
