@@ -94,6 +94,7 @@ function addUserInfo(name,email,image){
 /**
  * Show all friends of a user in the specified HTML element
  * @param elementID
+ * @param addFriendButtonEnabled
  */
 function showFriends(elementID){
     firebase.auth().onAuthStateChanged(function(user) {
@@ -107,7 +108,7 @@ function showFriends(elementID){
                 const friendsKeys= Object.keys(snapshot.val());
                 for(let i = 0; i < friends.length;i++){
                     let obj = friends[i];
-                    showUser(elementID,obj,friendsKeys[i]);
+                    showUser(elementID,obj,friendsKeys[i],true);
                 }
                 return snapshot.val();
             }, function (error) {
@@ -124,22 +125,73 @@ function showFriends(elementID){
  * @param elementID
  * @param user
  * @param key of the user with which I want a conversation.
+ * @param needsToOpenConversation
+ * @param addFriendButtonEnabled
  */
-function showUser(elementID, user, key){
+function showUser(elementID, user, key,needsToOpenConversation, addFriendButtonEnabled){
     const node = document.createElement("LI");
     const textNode = document.createTextNode(user.username);
-    node.appendChild(textNode);
-    document.getElementById(elementID).appendChild(node);
-
     const img = document.createElement('img');
-    img.src = user.image;
+    img.className='user-photo';
     img.width=50;
     img.height=50;
+    img.src = user.image;
     img.setAttribute( 'type','button');
-    img.setAttribute('onclick',`openConversationWithUser("${key}")`);
+    if(needsToOpenConversation===true){
+        img.setAttribute('onclick',`openConversationWithUser("${key}")`);
+    }
+
+    if(addFriendButtonEnabled===true){
+        const ref = firebase.database().ref('users/'+ selfID +'/friends/');
+        ref.on('value', function(snapshot) {
+            const messagesKeys=Object.keys(snapshot.val());
+            const aBtn=document.createElement("a");
+            const addImg = document.createElement("i");
+            aBtn.className='user-btn';
+            addImg.className='fas fa-plus-circle';
+            addImg.setAttribute('type','button');
+
+            if(messagesKeys.indexOf(key) != -1){
+                addImg.style.visibility="hidden";
+            }else{
+                console.log("--->"+user);
+                console.log("aEmail :"+user.email);
+                console.log("aUserName :"+user.username);
+                console.log("aImage :"+user.image);
+                addImg.setAttribute('onclick', `addFriend("${key}","${user.username}","${user.email}","${user.image}")`);
+            }
+            aBtn.appendChild(addImg);
+            document.getElementById(elementID).appendChild(aBtn);
+
+        }, function (error) {
+            console.log("Error: " + error.code);
+        });
+
+    }
+
+    node.appendChild(textNode);
     document.getElementById(elementID).appendChild(img);
+    document.getElementById(elementID).appendChild(node);
 }
 
+/**
+ * Add a friend
+ * @param userID
+ * @param username
+ * @param email
+ * @param image
+ */
+function addFriend(userID,username, email, image) {
+    const currentUserFriendsRef = firebase.database().ref('users/'+ selfID +'/friends/');
+    clearGUIElementByID('friendsList');
+    clearGUIElementByID('usersList');
+    currentUserFriendsRef.child(userID).set({
+        email:email,
+        username:username,
+        image:image
+    });
+
+}
 /**
  * Open a conversation with a user with specified id.
  * @param userID with which the current user wants to talk
@@ -147,9 +199,9 @@ function showUser(elementID, user, key){
  */
 function openConversationWithUser(userID)
 {
-    clearGUIElementByID('chat-logs')
+    clearGUIElementByID('chat-logs');
     friendID=userID;
-    var ref = firebase.database().ref('users/'+selfID+'/conversations/'+userID+'/messages');
+    const ref = firebase.database().ref('users/'+selfID+'/conversations/'+userID+'/messages');
 
     ref.on("value", function(snapshot) {
         console.log(snapshot.val());
@@ -180,14 +232,11 @@ function showMessage(elementID,message,messageID, userID) {
     }
     messageDiv.id=messageID;
     const userPhotoDiv = document.createElement("div");
-    userPhotoDiv.className='user-photo';
-    userPhotoDiv.className=messageID+"x";
-
     const img = document.createElement("img");
     img.className='user-photo';
     img.width=50;
     img.height=50;
-    var userRef = firebase.database().ref('users/'+message.authorID);
+    const userRef = firebase.database().ref('users/'+message.authorID);
     userRef.once("value", function(snapshot) {
         const user = snapshot.val()
         console.log(user);
@@ -215,10 +264,11 @@ function findUsers(elementID, textProviderID) {
     const ref = firebase.database().ref('users/');
     ref.on("value", function(snapshot) {
         const users = Object.values(snapshot.val());
+        const usersKeys = Object.keys(snapshot.val());
         for(let i = 0; i < users.length;i++){
             let obj = users[i];
             if(obj.username.includes(pattern) && pattern != ''){
-                showUser(elementID,obj);
+                showUser(elementID,obj,usersKeys[i],false,true);
             }
         }
     }, function (error) {
