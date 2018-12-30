@@ -90,23 +90,6 @@ function addUserInfo(name,email,image){
 });
 }
 
-/**
- * Open a conversation with a user with specified id.
- * @param userID with which the current user wants to talk
- * @return a list of messages IDs
- */
-function openConversationWithUser(userID)
-{
-    var currentUser = firebase.auth().currentUser;
-    var ref = firebase.database().ref('users/'+currentUser.uid+'/conversations/'+userID+'/messages');
-
-    ref.on("value", function(snapshot) {
-        console.log(snapshot.val());
-        return snapshot.val();
-    }, function (error) {
-        console.log("Error: " + error.code);
-    });
-}
 
 /**
  * Show all friends of a user in the specified HTML element
@@ -121,9 +104,10 @@ function showFriends(elementID){
             ref.on("value", function(snapshot) {
                 console.log(snapshot.val());
                 const friends = Object.values(snapshot.val());
+                const friendsKeys= Object.keys(snapshot.val());
                 for(let i = 0; i < friends.length;i++){
                     let obj = friends[i];
-                    showUser(elementID,obj);
+                    showUser(elementID,obj,friendsKeys[i]);
                 }
                 return snapshot.val();
             }, function (error) {
@@ -139,8 +123,9 @@ function showFriends(elementID){
  *  Show a user as an element of a list specified by its element ID.
  * @param elementID
  * @param user
+ * @param key of the user with which I want a conversation.
  */
-function showUser(elementID, user){
+function showUser(elementID, user, key){
     const node = document.createElement("LI");
     const textNode = document.createTextNode(user.username);
     node.appendChild(textNode);
@@ -150,9 +135,34 @@ function showUser(elementID, user){
     img.src = user.image;
     img.width=50;
     img.height=50;
+    img.setAttribute( 'type','button');
+    img.setAttribute('onclick',`openConversationWithUser("${key}")`);
     document.getElementById(elementID).appendChild(img);
 }
 
+/**
+ * Open a conversation with a user with specified id.
+ * @param userID with which the current user wants to talk
+ * @return a list of messages IDs
+ */
+function openConversationWithUser(userID)
+{
+    //TODO refactor this code.
+    const chatLogs = document.getElementById('chat-logs');
+    while(chatLogs.firstChild){
+        chatLogs.removeChild(chatLogs.firstChild);
+    }
+    var currentUser = firebase.auth().currentUser;
+    var ref = firebase.database().ref('users/'+currentUser.uid+'/conversations/'+userID+'/messages');
+
+    ref.on("value", function(snapshot) {
+        console.log(snapshot.val());
+
+        return snapshot.val();
+    }, function (error) {
+        console.log("Error: " + error.code);
+    });
+}
 /**
  *Find  users that match the pattern from the textProviderID HTML element.
  * @param elementID where to render the names and images for the users.
