@@ -86,8 +86,8 @@ function addUserInfo(name,email,image){
             });
         }else{
             window.alert("User is NOT ready"+user.uid);
-}
-});
+        }
+    });
 }
 
 
@@ -157,11 +157,56 @@ function openConversationWithUser(userID)
 
     ref.on("value", function(snapshot) {
         console.log(snapshot.val());
-
+        const messages=Object.values(snapshot.val());
+        const messagesKeys=Object.keys(snapshot.val());
+        for(let i = 0; i < messages.length;i++){
+            showMessage('chat-logs', messages[i],messagesKeys[i],currentUser.uid);
+        }
         return snapshot.val();
     }, function (error) {
         console.log("Error: " + error.code);
     });
+}
+
+/**
+ * Show a message in the message area of the user page.
+ * @param elementID
+ * @param message
+ * @param messageID
+ * @param userID
+ */
+function showMessage(elementID,message,messageID, userID) {
+    const messageDiv = document.createElement("div");
+    if(message.authorID === userID){
+        messageDiv.className='chat self';
+    }else{
+        messageDiv.className='chat friend';
+    }
+    messageDiv.id=messageID;
+    const userPhotoDiv = document.createElement("div");
+    userPhotoDiv.className='user-photo';
+    userPhotoDiv.className=messageID+"x";
+
+    const img = document.createElement("img");
+    img.className='user-photo';
+    img.width=50;
+    img.height=50;
+    var userRef = firebase.database().ref('users/'+message.authorID);
+    userRef.once("value", function(snapshot) {
+        const user = snapshot.val()
+        console.log(user);
+        img.src=user.image;
+    }, function (error) {
+        console.log("Error: " + error.code);
+    });
+
+    const messageParagraph=document.createElement("p");
+    messageParagraph.className="chat-message";
+    messageParagraph.innerText=message.text;
+    document.getElementById(elementID).appendChild(messageDiv);
+    document.getElementById(messageDiv.id).appendChild(userPhotoDiv);
+    document.getElementById(messageDiv.id).appendChild(img);
+    document.getElementById(messageDiv.id).appendChild(messageParagraph);
 }
 /**
  *Find  users that match the pattern from the textProviderID HTML element.
@@ -201,7 +246,7 @@ function uploadProfileImage(){
     uploadTask.on('state_changed', function (snapshot) {
         //Observe state change events such as progress, pause, resume
     },function (error) {
-     console.log(error);
+        console.log(error);
     },function () {
         var downloadURL=uploadTask.snapshot.downloadURL;
         //TODO add the image url to each user.
