@@ -140,33 +140,30 @@ function showUser(elementID, user, key,needsToOpenConversation, addFriendButtonE
     if(needsToOpenConversation===true){
         img.setAttribute('onclick',`openConversationWithUser("${key}")`);
     }
-
+    let hide = 'visible';
     if(addFriendButtonEnabled===true){
         const ref = firebase.database().ref('users/'+ selfID +'/friends/');
         ref.on('value', function(snapshot) {
             const messagesKeys=Object.keys(snapshot.val());
-            const aBtn=document.createElement("a");
-            const addImg = document.createElement("i");
-            aBtn.className='user-btn';
-            addImg.className='fas fa-plus-circle';
-            addImg.setAttribute('type','button');
-
-            if(messagesKeys.indexOf(key) != -1){
-                addImg.style.visibility="hidden";
-            }else{
-                console.log("--->"+user);
-                console.log("aEmail :"+user.email);
-                console.log("aUserName :"+user.username);
-                console.log("aImage :"+user.image);
-                addImg.setAttribute('onclick', `addFriend("${key}","${user.username}","${user.email}","${user.image}")`);
+            if(messagesKeys.indexOf(key) !== -1){
+                hide = 'hidden';
             }
-            aBtn.appendChild(addImg);
-            document.getElementById(elementID).appendChild(aBtn);
-
         }, function (error) {
             console.log("Error: " + error.code);
         });
-
+        const aBtn=document.createElement("a");
+        const addImg = document.createElement("i");
+        aBtn.className='user-btn';
+        addImg.className='fas fa-plus-circle';
+        addImg.setAttribute('type','button');
+        addImg.style.visibility=hide;
+        if(needsToOpenConversation === true){
+            addImg.style.visibility='hidden';
+        }else{
+            addImg.setAttribute('onclick', `addFriend("${key}","${user.username}","${user.email}","${user.image}")`);
+        }
+        aBtn.appendChild(addImg);
+        document.getElementById(elementID).appendChild(aBtn);
     }
 
     node.appendChild(textNode);
@@ -190,7 +187,7 @@ function addFriend(userID,username, email, image) {
         username:username,
         image:image
     });
-
+    location.reload();
 }
 /**
  * Open a conversation with a user with specified id.
@@ -199,10 +196,9 @@ function addFriend(userID,username, email, image) {
  */
 function openConversationWithUser(userID)
 {
-    clearGUIElementByID('chat-logs');
     friendID=userID;
     const ref = firebase.database().ref('users/'+selfID+'/conversations/'+userID+'/messages');
-
+    clearGUIElementByID('chat-logs');
     ref.on("value", function(snapshot) {
         console.log(snapshot.val());
         const messages=Object.values(snapshot.val());
