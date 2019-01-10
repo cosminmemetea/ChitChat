@@ -135,7 +135,11 @@ function showUser(elementID, user, key,needsToOpenConversation, addFriendButtonE
     img.className='user-photo';
     img.width=50;
     img.height=50;
-    img.src = user.image;
+    if(user.image === "undefined"){
+        img.src = "https://firebasestorage.googleapis.com/v0/b/chitchat-381f6.appspot.com/o/profileImages%2F039b004617d1ef43cf1769aae45d6ea2.png?alt=media&token=bc2594ab-6eb5-4603-a5f6-a9c40f75c84c";
+    } else {
+        img.src = user.image;
+    }
     img.setAttribute( 'type','button');
     if(needsToOpenConversation===true){
         img.setAttribute('onclick',`openConversationWithUser("${key}")`);
@@ -201,10 +205,12 @@ function openConversationWithUser(userID)
     clearGUIElementByID('chat-logs');
     ref.on("value", function(snapshot) {
         console.log(snapshot.val());
-        const messages=Object.values(snapshot.val());
-        const messagesKeys=Object.keys(snapshot.val());
-        for(let i = 0; i < messages.length;i++){
-            showMessage('chat-logs', messages[i],messagesKeys[i],selfID);
+        if(snapshot.val() !== null) {
+            const messages=Object.values(snapshot.val());
+            const messagesKeys=Object.keys(snapshot.val());
+            for(let i = 0; i < messages.length;i++){
+                showMessage('chat-logs', messages[i],messagesKeys[i],selfID);
+            }
         }
         return snapshot.val();
     }, function (error) {
@@ -236,7 +242,11 @@ function showMessage(elementID,message,messageID, userID) {
     userRef.once("value", function(snapshot) {
         const user = snapshot.val()
         console.log(user);
-        img.src=user.image;
+        if(user.image !== undefined){
+            img.src=user.image;
+        } else{
+            img.src="https://cdn1.iconfinder.com/data/icons/freeline/32/account_friend_human_man_member_person_profile_user_users-512.png"
+        }
     }, function (error) {
         console.log("Error: " + error.code);
     });

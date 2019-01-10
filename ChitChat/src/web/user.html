@@ -21,6 +21,7 @@
     <link rel="shortcut icon" href="../img/minil.png" />
 </head>
 <body>
+
 <div class ="header" >
     <div class="user-box">
 
@@ -39,22 +40,25 @@
         <i  onclick="logout()" class="fas fa-sign-out-alt"></i>
     </div>
 </div>
+
 <h3 id="greet_user"></h3>
 <p>Wekcome to our chat page</p>
 <button onClick="getUserName()">press</button>
 <button onclick="logout()">Logout</button>
-<button onClick="openUserPage()">User</button>;
+<button onClick="openUserPage()">User</button>
+
 <div id = "body" class="logged-in">
     <div class="left">Friends
         <ul id="friendsList" class="no-bullet">
         </ul>
         <script>showFriends('friendsList')</script>
     </div>
+
     <div class="center">Find your Chit Chat partner!
         <ul id="usersList" class="no-bullet">
         </ul>
-
     </div>
+
     <div class="right">Chat
         <!--button class="open-button" onclick="openForm()">Chat</button-->
         <div class="chat-form">
@@ -68,9 +72,7 @@
         </div>
 
         <div class="chat-box">
-            <div class="chat-logs" id="chat-logs">
-            </div>
-
+            <div class="chat-logs" id="chat-logs"></div>
         </div>
 
     </div>
