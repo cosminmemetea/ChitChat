@@ -90,7 +90,6 @@ function addUserInfo(name,email,image){
     });
 }
 
-
 /**
  * Show all friends of a user in the specified HTML element
  * @param elementID
@@ -106,9 +105,9 @@ function showFriends(elementID){
                 console.log(snapshot.val());
                 const friends = Object.values(snapshot.val());
                 const friendsKeys= Object.keys(snapshot.val());
-                for(let i = 0; i < friends.length;i++){
+                for(let i = 0; i < friends.length; i++){
                     let obj = friends[i];
-                    showUser(elementID,obj,friendsKeys[i],true);
+                    showUser(elementID, obj, friendsKeys[i], true);
                 }
                 return snapshot.val();
             }, function (error) {
@@ -135,11 +134,15 @@ function showUser(elementID, user, key,needsToOpenConversation, addFriendButtonE
     img.className='user-photo';
     img.width=50;
     img.height=50;
-    if(user.image === "undefined"){
-        img.src = "https://firebasestorage.googleapis.com/v0/b/chitchat-381f6.appspot.com/o/profileImages%2F039b004617d1ef43cf1769aae45d6ea2.png?alt=media&token=bc2594ab-6eb5-4603-a5f6-a9c40f75c84c";
+    const default_usr = "https://firebasestorage.googleapis.com/v0/b/chitchat-381f6.appspot.com/o/profileImages%2F039b004617d1ef43cf1769aae45d6ea2.png?alt=media&token=bc2594ab-6eb5-4603-a5f6-a9c40f75c84c";
+    if(String(user.image) === "undefined"){
+        img.src = default_usr;
+        console.log("user has no image");
     } else {
+        console.log("user image: " + user.image);
         img.src = user.image;
     }
+
     img.setAttribute( 'type','button');
     if(needsToOpenConversation===true){
         img.setAttribute('onclick',`openConversationWithUser("${key}")`);
@@ -209,7 +212,7 @@ function openConversationWithUser(userID)
             const messages=Object.values(snapshot.val());
             const messagesKeys=Object.keys(snapshot.val());
             for(let i = 0; i < messages.length;i++){
-                showMessage('chat-logs', messages[i],messagesKeys[i],selfID);
+                showMessage('chat-logs', messages[i], messagesKeys[i], selfID);
             }
         }
         return snapshot.val();
@@ -239,11 +242,12 @@ function showMessage(elementID,message,messageID, userID) {
     img.width=50;
     img.height=50;
     const userRef = firebase.database().ref('users/'+message.authorID);
+    const default_usr = "https://firebasestorage.googleapis.com/v0/b/chitchat-381f6.appspot.com/o/profileImages%2F039b004617d1ef43cf1769aae45d6ea2.png?alt=media&token=bc2594ab-6eb5-4603-a5f6-a9c40f75c84c";
     userRef.once("value", function(snapshot) {
         const user = snapshot.val()
         console.log(user);
-        if(user.image !== undefined){
-            img.src=user.image;
+        if(user.image === "undefined"){
+            img.src=default_usr;
         } else{
             img.src="https://cdn1.iconfinder.com/data/icons/freeline/32/account_friend_human_man_member_person_profile_user_users-512.png"
         }
@@ -271,10 +275,11 @@ function findUsers(elementID, textProviderID) {
     ref.on("value", function(snapshot) {
         const users = Object.values(snapshot.val());
         const usersKeys = Object.keys(snapshot.val());
-        for(let i = 0; i < users.length;i++){
+        for(let i = 0; i < users.length; i++){
             let obj = users[i];
-            if(obj.username.includes(pattern) && pattern != ''){
-                showUser(elementID,obj,usersKeys[i],false,true);
+            if(obj.username === String(pattern)){
+                console.log("we have a match");
+                showUser(elementID, obj, usersKeys[i], false, true);
             }
         }
     }, function (error) {
