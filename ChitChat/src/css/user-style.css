@@ -14,6 +14,7 @@ body{
     position:absolute;
     top:2%;
     left:25%;
+    width:240px;
     transform:translate(0%,-10%);
     background:#DCC9E7;
     border-radius:40px;
@@ -22,12 +23,12 @@ body{
 .no-bullet {
     list-style-type: none;
 }
-.search-box:hover > .search-txt{
+/*.search-box:hover > .search-txt{
     width:240px;
     padding: 0 6px;
-}
-.search-box:hover > .search-btn{
-}
+}*/
+/*.search-box:hover > .search-btn{
+}*/
 .search-txt{
     border:none;
     background:none;
@@ -37,23 +38,25 @@ body{
     color:black;
     transition:0.4s;
     line-height:20px;
-    width:0;
+    padding: 0 6px;
+    width:82%;
 }
 .search-btn{
-    float: top;
-    width:20px;
-    height:20px;
-    border-radius:50%;
+    float: right;
+    padding-right: 5%;
+    width: 3%;
+    height: 3%;
+    border-radius: 50%;
 }
 
 .user-box{
     position:absolute;
     top: 2%;
-    left:3%;
+    left: 3%;
     transform:translate(-10%,-10%);
-    background:#DCC9E7;
-    border-radius:40px;
-    padding:10px;
+    background: #DCC9E7;
+    border-radius: 40px;
+    padding: 10px;
 }
 .user-btn{
     float: top;
